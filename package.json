@@ -1,0 +1,25 @@
+{
+  "name": "Toolbox",
+  "version": "1.0.0",
+  "description": "Management system for cleaning companies and landlords",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lite5h4dow/Toolbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lite5h4dow/Toolbox/issues"
+  },
+  "homepage": "https://github.com/Lite5h4dow/Toolbox#readme",
+  "dependencies": {
+    "next": "^9.2.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  }
+}
