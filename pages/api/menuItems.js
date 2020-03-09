@@ -1,26 +1,18 @@
 import withMongo from "../../middleware/withMongo";
 
-const handler = async (req, res, client, callback) => {
+const handler = async (req, res, db) => {
   console.log("in api");
-
-  const db = client.db(process.env.mongo_name);
 
   var pages = await db
     .collection("Pages")
-    .find({})
-    .toArray(function(err, docs) {
-      const assert = require("assert");
+    .find()
+    .toArray();
+  console.log(pages);
+  // pages.Then(result => {
+  //   console.log(result);
+  // });
 
-      assert.equal(err, null);
-
-      console.log("found the following documents");
-      console.log(docs);
-      return docs;
-    });
-
-  res.status(200).json(pages);
-
-  callback(client);
+  res.status(200).json(JSON.stringify(pages));
 };
 
 export default withMongo(handler);

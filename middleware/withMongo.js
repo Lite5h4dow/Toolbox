@@ -5,15 +5,21 @@ const withMongo = handler => async (req, res) => {
   const assert = require("assert");
   const client = new MongoClient(process.env.mongo_url);
 
-  await client.connect(function(err) {
-    assert.equal(null, err);
+  try {
+    await client.connect();
+    const db = client.db(process.env.mongo_name, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    });
     console.log("connected to database");
 
-    return handler(req, res, client, function(client) {
-      console.log("disconnecting from database");
-      client.close();
-    });
-  });
+    await handler(req, res, db);
+  } catch (err) {
+    console.error("connection to mongodb failed: " + err);
+  } finally {
+    client.close();
+    console.log("disconnected from database");
+  }
 };
 
 export default withMongo;
