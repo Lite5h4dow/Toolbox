@@ -7,10 +7,6 @@ const handler = async (req, res, db) => {
     .collection("Pages")
     .find()
     .toArray();
-  console.log(pages);
-  // pages.Then(result => {
-  //   console.log(result);
-  // });
 
   res.status(200).json(JSON.stringify(pages));
 };

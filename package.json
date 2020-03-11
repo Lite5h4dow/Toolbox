@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/Lite5h4dow/Toolbox#readme",
   "dependencies": {
+    "axios": "^0.19.2",
+    "axios-hooks": "^1.9.0",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "mongodb": "^3.5.4",

@@ -1,4 +1,5 @@
-import { Menu, Container } from "semantic-ui-react";
+import { Menu, Segment, Container } from "semantic-ui-react";
+import MenuPages from "./menuPages";
 
 const withLayout = Page => {
   return () => (
@@ -7,12 +8,15 @@ const withLayout = Page => {
         rel="stylesheet"
         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
       />
-      <Menu pointing secondary></Menu>
+      <Segment inverted>
+        <Menu inverted pointing secondary>
+          <MenuPages></MenuPages>
+        </Menu>
+      </Segment>
       <Container>
         <Page />
       </Container>
     </div>
   );
 };
-
 export default withLayout;
