@@ -1,4 +1,5 @@
 import useAxios from "axios-hooks";
+import Link from 'next/link'
 import {
   Dimmer,
   Loader,
@@ -16,18 +17,22 @@ export default function MenuPages() {
   if (loading) return <Loader />;
   if (error) return <div>error</div>;
 
-  console.log(data);
-
   data.sort((a, b) => {
-    console.log(a);
-    console.log(b);
     return a.PageOrder - b.PageOrder;
   });
+
+  const handleClick = (PageURL) => {
+    window.location.href = PageURL
+  }
 
   return (
     <Container>
       {data.map(page => {
-        return <Menu.Item>{page.PageName}</Menu.Item>;
+        return (
+          <Link href={page.PageURL} passHref key={page.PageOrder}>
+            <Menu.Item as="a" >{page.PageName}</Menu.Item>
+          </Link>
+        );
       })}
     </Container>
   );
