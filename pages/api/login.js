@@ -1,21 +1,18 @@
-import Axios from 'axios'
-const { json, send, createError, run } = require('micro')
+import withMongo from "../../middleware/withMongo";
+import passHash from "password-hash";
 
-const login = async (req, res) => {
-  const { username } = await json(req)
-  const url = `https://api.github.com/users/${username}`
+const handler = async (req, res, db) => {
+  var user = await db.collection("Users").findOne({
+    username: req.body.username
+  });
 
-  try {
-    const response = await Axios.get(url)
-    if (response.status(200)) {
-      const { id } = await response.data()
-      send(res, 200, { token: id })
-    } else {
-      send(res, response.status, response.statusText)
-    }
-  } catch (err) {
-    throw createError(err.status, err.statusText)
+  if ((user != null) & passHash.verify(req.body.password, user.password)) {
+    res.status(200).json({ id: user._id });
+  } else {
+    res
+      .status(400)
+      .json({ message: "Username or password does not match records" });
   }
-}
+};
 
-module.exports = (req, res) => run(req, res, login);
+export default withMongo(handler);

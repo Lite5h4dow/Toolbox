@@ -1,4 +1,4 @@
-import { Segment, Header } from "semantic-ui-react";
+import { Segment, Header, Button } from "semantic-ui-react";
 import withLayout from "../components/frontLayout";
 
 const Index = () => {

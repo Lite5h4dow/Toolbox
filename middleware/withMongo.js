@@ -2,7 +2,6 @@ const withMongo = handler => async (req, res) => {
   console.log("In Middleware");
 
   const MongoClient = require("mongodb").MongoClient;
-  const assert = require("assert");
   const client = new MongoClient(process.env.mongo_url);
 
   try {
