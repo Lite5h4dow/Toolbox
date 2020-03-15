@@ -1,13 +1,6 @@
 import useAxios from "axios-hooks";
 import Link from "next/link";
-import {
-  Dimmer,
-  Loader,
-  Segment,
-  Container,
-  Menu,
-  Item
-} from "semantic-ui-react";
+import { Loader, Container, Menu } from "semantic-ui-react";
 
 export default function MenuPages() {
   const [{ data, loading, error }, refetch] = useAxios(

@@ -1,16 +1,18 @@
 import withLayout from "../components/frontLayout";
 import serialize from "form-serialize";
+import Router from "next/router";
 import {
   Segment,
   Button,
   Grid,
   Form,
-  Label,
   Header,
-  Input
+  Input,
+  Checkbox
 } from "semantic-ui-react";
 import Axios from "axios";
 import https from "https";
+import cookie from "js-cookie";
 
 const Login = () => {
   var email;
@@ -23,13 +25,20 @@ const Login = () => {
     });
 
     res.then(ret => {
-      console.log(`${process.env.local_url}/Profile/${ret.data.id}`);
-      window.Location.href = `${process.env.local_url}/Profile/${ret.data.id}`;
+      if (reqData.rememberMe) {
+        cookie.set("sessionId", ret.data.sessionID, { expires: 30 });
+      } else {
+        cookie.set("sessionId", ret.data.sessionID);
+      }
+      Router.push(`/Profile/${ret.data.userID}`);
+    });
+
+    res.catch(ret => {
+      alert(ret.response.data.message);
     });
   }
 
   function registerPost(reqData) {
-    console.log(reqData);
     var res = Axios({
       method: "post",
       url: `${process.env.local_url}/api/register`,
@@ -37,8 +46,12 @@ const Login = () => {
       httpsAgent: new https.Agent({ keepAlive: true })
     });
 
+    res.then(ret => {
+      console.log(ret);
+    });
+
     res.catch(resErr => {
-      console.log(resErr.response.data);
+      alert(resErr.response.data);
       resErr.response.data;
     });
   }
@@ -71,7 +84,14 @@ const Login = () => {
               type="password"
               required
             />
-            <Form.Field control={Button} content="Login" type="submit" />
+            <Form.Group>
+              <Form.Field control={Button} content="Login" type="submit" />
+              <Form.Field
+                name="rememberMe"
+                control={Checkbox}
+                label="Remember Me"
+              />
+            </Form.Group>
           </Form>
         </Grid.Column>
         <Grid.Column>
@@ -137,7 +157,14 @@ const Login = () => {
                 required
               />
             </Form.Group>
-            <Form.Field control={Button} content="Register" type="submit" />
+            <Form.Group>
+              <Form.Field control={Button} content="Register" type="submit" />
+              <Form.Field
+                control={Checkbox}
+                label="I agree to the terms and conditions"
+                required
+              />
+            </Form.Group>
           </Form>
         </Grid.Column>
       </Grid>
