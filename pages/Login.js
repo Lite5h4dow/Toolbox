@@ -30,6 +30,7 @@ const Login = () => {
       } else {
         cookie.set("sessionId", ret.data.sessionID);
       }
+      cookie.set("lastUser", ret.data.sessionID);
       Router.push(`/Profile/${ret.data.userID}`);
     });
 
@@ -47,12 +48,13 @@ const Login = () => {
     });
 
     res.then(ret => {
-      console.log(ret);
+      cookie.set("sessionId", ret.data.sessionID);
+      cookie.set("lastUser", ret.data.userID);
+      Router.push(`/Profile/${ret.data.userID}`);
     });
 
     res.catch(resErr => {
       alert(resErr.response.data);
-      resErr.response.data;
     });
   }
   return (

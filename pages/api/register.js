@@ -1,4 +1,5 @@
 import withMongo from "../../middleware/withMongo";
+import createSession from "../../lib/createSession";
 import passHash from "password-hash";
 
 const register = async (req, res, db) => {
@@ -34,7 +35,11 @@ const register = async (req, res, db) => {
       email: req.body.email.toLowerCase()
     };
     var createdUser = await db.collection("Users").insertOne(newUser);
-    res.status(200).json({ id: createdUser.ops._id });
+    console.log(createdUser);
+    var sessionID = await createSession(createdUser.ops[0]._id, db);
+    res
+      .status(200)
+      .json({ userID: createdUser.ops[0]._id, sessionID: sessionID });
   }
 };
 
