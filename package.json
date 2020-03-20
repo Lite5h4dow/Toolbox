@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Lite5h4dow/Toolbox#readme",
   "dependencies": {
+    "@fluentui/docs-components": "^0.46.0",
     "axios": "^0.19.2",
     "axios-hooks": "^1.9.0",
     "dotenv": "^8.2.0",
@@ -27,6 +28,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.1",
     "micro": "^9.3.4",
+    "moment": "^2.24.0",
     "mongodb": "^3.5.4",
     "next": "^9.2.2",
     "password-hash": "^1.2.2",
