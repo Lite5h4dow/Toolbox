@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Lite5h4dow/Toolbox#readme",
   "dependencies": {
-    "@fluentui/docs-components": "^0.46.0",
+    "@types/node": "^12.12.31",
+    "@types/react": "^16.9.25",
     "axios": "^0.19.2",
     "axios-hooks": "^1.9.0",
     "dotenv": "^8.2.0",
@@ -34,6 +35,7 @@
     "password-hash": "^1.2.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "semantic-ui-react": "^0.88.2"
+    "semantic-ui-react": "^0.88.2",
+    "typescript": "^3.8.3"
   }
 }

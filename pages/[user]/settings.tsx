@@ -1,9 +1,9 @@
-import { Segment, Form, Radio, Header } from "semantic-ui-react";
+import { Segment, Form, Radio, Header, Container } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import serialize from "form-serialize";
 import useAxios from "axios-hooks";
 import https from "https";
-import withLayout from "../../components/mainLayout";
+import Layout from "../../components/mainLayout";
 
 const settings = () => {
   const router = useRouter();
@@ -17,7 +17,14 @@ const settings = () => {
   if (loading) return <Segment loading></Segment>;
   if (error) router.push("/");
 
-  return <Segment></Segment>;
+  return (
+    <Layout>
+      <Container>
+        <Header content="Settings" textAlign="center" />
+        <Segment></Segment>
+      </Container>
+    </Layout>
+  );
 };
 
-export default withLayout(settings);
+export default settings;
