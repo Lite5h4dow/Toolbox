@@ -1,17 +1,24 @@
 import Router from "next/router";
 import MainLayout from "../../components/mainLayout";
-import Axios from "axios";
-import cookie from "js-cookie";
+import Axios, { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 import https from "https";
-import { Segment, Header } from "semantic-ui-react";
+import { Segment, Header, Loader, Dimmer } from "semantic-ui-react";
+import { Component } from "react";
+import moment from "moment";
 
-const profile = () => {
-  return (
-    <MainLayout>
-      <Header textAlign="center">Dashboard</Header>
-      <Segment></Segment>
-    </MainLayout>
-  );
-};
+interface DashboardProps {}
 
-export default profile;
+interface DashboardState {}
+
+class Dashboard extends Component<DashboardProps, DashboardState> {
+  render() {
+    return (
+      <MainLayout>
+        <Header content="Dashboard" textAlign="center" />
+      </MainLayout>
+    );
+  }
+}
+
+export default Dashboard;

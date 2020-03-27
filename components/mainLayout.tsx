@@ -5,23 +5,53 @@ import {
   Menu,
   Button,
   Grid,
-  Item
+  Dimmer,
+  Loader
 } from "semantic-ui-react";
 import react, { Component } from "react";
 import UserAvatar from "../components/userMenuAvatar";
 import Router from "next/router";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
+import Axios, { AxiosResponse } from "axios";
+import https from "https";
+import { ParsedUrlQuery } from "querystring";
 
 export interface LayoutState {
   barVisible: boolean;
   bodyDimmed: boolean;
+  displayPage: boolean;
 }
 
 class MainLayout extends Component<{}, LayoutState> {
   constructor(props) {
     super(props);
-    this.state = { barVisible: false, bodyDimmed: false };
+    this.setState({ barVisible: false, bodyDimmed: false, displayPage: false });
     this.handleSideBar = this.handleSideBar.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({ displayPage: false });
+    var session = Cookies.get("sessionId");
+    var lastUser = Cookies.get("lastUser");
+
+    var validation = Axios({
+      url: `${process.env.local_url}/api/validateSession`,
+      method: "post",
+      data: { sessionID: session, userID: lastUser },
+      httpsAgent: new https.Agent({ keepAlive: true })
+    });
+
+    validation.then((res: AxiosResponse) => {
+      if (!res.data.session) {
+        Router.push("/Login");
+      } else {
+        this.setState({ displayPage: true });
+      }
+    });
+
+    validation.catch(() => {
+      Router.push("/Login");
+    });
   }
 
   handleSideBar() {
@@ -29,7 +59,22 @@ class MainLayout extends Component<{}, LayoutState> {
     this.setState({ barVisible: !visible, bodyDimmed: !visible });
   }
 
+  handleLogOut() {
+    Cookies.remove("lastUser");
+    Cookies.remove("sessionId");
+    Router.push("/");
+  }
+
   render() {
+    if (!this.state.displayPage) {
+      return (
+        <Segment>
+          <Dimmer active>
+            <Loader size="big" content="Loading" />
+          </Dimmer>
+        </Segment>
+      );
+    }
     return (
       <div>
         <link
@@ -75,8 +120,9 @@ class MainLayout extends Component<{}, LayoutState> {
                         circular
                         basic
                         color="orange"
-                        icon="user outline"
+                        icon="sign-out"
                         floated="right"
+                        onClick={this.handleLogOut}
                       />
                     </Grid.Column>
                   </Grid.Row>

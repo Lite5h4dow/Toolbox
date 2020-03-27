@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/Lite5h4dow/Toolbox#readme",
   "dependencies": {
+    "@types/js-cookie": "^2.2.5",
+    "@types/mongodb": "^3.5.3",
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.25",
     "axios": "^0.19.2",

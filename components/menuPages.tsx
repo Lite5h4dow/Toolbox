@@ -1,6 +1,7 @@
 import useAxios from "axios-hooks";
 import Link from "next/link";
-import { Loader, Container, Menu } from "semantic-ui-react";
+import Router from "next/router";
+import { Loader, Container, Menu, Button } from "semantic-ui-react";
 
 export default function MenuPages() {
   const [{ data, loading, error }, refetch] = useAxios(
@@ -14,15 +15,51 @@ export default function MenuPages() {
     return a.PageOrder - b.PageOrder;
   });
 
+  const handleClick = (url: string) => {
+    let router = Router;
+    router.push(url);
+  };
+
   return (
     <Container>
       {data.map(page => {
         return (
-          <Link href={page.PageURL} passHref key={page.PageOrder}>
-            <Menu.Item as="a">{page.PageName}</Menu.Item>
-          </Link>
+          <Menu.Item
+            as="a"
+            key={page.PageOrder}
+            onClick={() => {
+              handleClick(page.PageURL);
+            }}
+            content={page.PageName}
+          />
         );
       })}
+      <Menu.Menu position="right">
+        <Menu.Item fitted="vertically">
+          <Button.Group compact>
+            <Button
+              basic
+              color="blue"
+              compact
+              content="Login"
+              onClick={() => {
+                let router = Router;
+                router.push("/Login");
+              }}
+            />
+            <Button
+              basic
+              color="orange"
+              compact
+              content="Register"
+              onClick={() => {
+                let router = Router;
+                router.push("/Register");
+              }}
+            />
+          </Button.Group>
+        </Menu.Item>
+      </Menu.Menu>
     </Container>
   );
 }

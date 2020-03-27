@@ -1,4 +1,9 @@
-const withMongo = handler => async (req, res) => {
+import { NextApiRequest, NextApiResponse } from "next";
+
+const withMongo = handler => async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   console.log("In Middleware");
 
   const MongoClient = require("mongodb").MongoClient;

@@ -4,8 +4,8 @@ import moment from "moment";
 
 const handler = async (req, res, db) => {
   var filter = {
-    userID: ObjectID(req.body.userID),
-    _id: ObjectID(req.body.sessionID)
+    userID: new ObjectID(req.body.userID),
+    _id: new ObjectID(req.body.sessionID)
   };
   var session = await db.collection("UserSessions").findOne(filter);
   if (!!!session) {

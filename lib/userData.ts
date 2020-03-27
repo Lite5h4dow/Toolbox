@@ -5,14 +5,17 @@ export class userData {
     surname: string,
     username: string,
     email: string,
-    userType: userTypes
+    userType: userTypes,
+    id?: string
   ) {
-    (this.Forename = forename),
+    (this.ID = id),
+      (this.Forename = forename),
       (this.Surname = surname),
       (this.Username = username),
       (this.Email = email),
       (this.UserType = userType);
   }
+  ID: string;
   Forename: string;
   Surname: string;
   Username: string;

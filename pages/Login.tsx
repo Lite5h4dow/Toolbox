@@ -28,7 +28,7 @@ const Login = () => {
       } else {
         cookie.set("sessionId", ret.data.sessionID);
       }
-      cookie.set("lastUser", ret.data.userID);
+      cookie.set("lastUser", ret.data.userID, { expires: 30 });
       Router.push(`/${ret.data.userID}`);
     });
 
