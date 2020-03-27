@@ -7,15 +7,19 @@ import { Segment, Header, Loader, Dimmer } from "semantic-ui-react";
 import { Component } from "react";
 import moment from "moment";
 
-interface DashboardProps {}
+interface DashboardProps { }
 
-interface DashboardState {}
+interface DashboardState { }
 
 class Dashboard extends Component<DashboardProps, DashboardState> {
   render() {
     return (
       <MainLayout>
         <Header content="Dashboard" textAlign="center" />
+        <Segment placeholder></Segment>
+        <Segment placeholder></Segment>
+        <Segment placeholder></Segment>
+
       </MainLayout>
     );
   }

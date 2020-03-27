@@ -1,8 +1,10 @@
 import withMongo from "../../middleware/withMongo";
 import createSession from "../../lib/createSession";
 import passHash from "password-hash";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Db } from "mongodb";
 
-const register = async (req, res, db) => {
+const register = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
   var error = [];
   var findUsername = await db
     .collection("Users")

@@ -4,7 +4,8 @@ import {
   Header,
   Container,
   Input,
-  Loader
+  Loader,
+  Select
 } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import serialize from "form-serialize";
@@ -22,16 +23,21 @@ interface SettingsState {
 }
 
 class Settings extends Component<{}, SettingsState> {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.setState({
       uData: new userData(
         "Joe",
         "Bloggs",
         "JoeBloggs123",
         "Joe.Bloggs@gmail.com",
-        userTypes.Landlord
+        'Landlord'
       )
     });
+  }
+
+  componentWillMount() {
+
     var user = Axios({
       url: `${process.env.local_url}/api/getUser`,
       method: "post",
@@ -40,29 +46,37 @@ class Settings extends Component<{}, SettingsState> {
     });
 
     user.then(resp => {
+      console.log(resp.data)
       this.setState({
         uData: new userData(
-          resp.data.forename,
-          resp.data.surname,
-          resp.data.username,
-          resp.data.email,
-          resp.data.userType
+          resp.data.Forename,
+          resp.data.Surname,
+          resp.data.Username,
+          resp.data.Email,
+          resp.data.UserType
         )
       });
     });
   }
 
+  handleFormChange = (e, { name, value }) => {
+    this.setState({ uData: { [name]: value } })
+  }
+
+
   render() {
     if (isNullOrUndefined(this.state.uData))
       return (
-        <Segment>
-          <Loader />
+        <Segment placeholder>
+          <Loader>
+
+          </Loader>
         </Segment>
       );
     return (
       <Layout>
         <Form>
-          <Form.Group>
+          <Form.Group widths="equal">
             <Form.Field
               name="Forename"
               label="Forename"
@@ -82,6 +96,12 @@ class Settings extends Component<{}, SettingsState> {
             control={Input}
             type="email"
             placeholder={this.state.uData.Email}
+          />
+          <Form.Field
+            name="Type"
+            label="Account Type"
+            control={Select}
+            options={['Cleaner', 'Manager', 'Admin', 'Landlord', 'Agency', 'Contractor']}
           />
         </Form>
       </Layout>

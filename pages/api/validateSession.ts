@@ -1,8 +1,9 @@
 import withMongo from "../../middleware/withMongo";
-import { ObjectID } from "mongodb";
+import { ObjectID, Db } from "mongodb";
 import moment from "moment";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req, res, db) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
   var filter = {
     userID: new ObjectID(req.body.userID),
     _id: new ObjectID(req.body.sessionID)

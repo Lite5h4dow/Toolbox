@@ -1,6 +1,8 @@
 import withMongo from "../../middleware/withMongo";
+import { NextApiResponse, NextApiRequest } from "next";
+import { Db } from "mongodb";
 
-const handler = async (req, res, db) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse, db: Db) => {
   var pages = await db
     .collection("Pages")
     .find()
