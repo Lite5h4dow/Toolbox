@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import Axios, { AxiosResponse } from "axios";
 import https from "https";
 import { ParsedUrlQuery } from "querystring";
+import "semantic-ui-css/semantic.min.css";
 
 export interface LayoutState {
   barVisible: boolean;
@@ -68,15 +69,21 @@ class MainLayout extends Component<{}, LayoutState> {
   render() {
     if (!this.state.displayPage) {
       return (
-        <Segment>
-          <Dimmer active>
-            <Loader size="big" content="Loading" />
-          </Dimmer>
-        </Segment>
+        <>
+          <link
+            rel="stylesheet"
+            href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+          />
+          <Segment placeholder>
+            <Dimmer active>
+              <Loader size="big" content="Loading" />
+            </Dimmer>
+          </Segment>
+        </>
       );
     }
     return (
-      <div>
+      <>
         <link
           rel="stylesheet"
           href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
@@ -132,7 +139,7 @@ class MainLayout extends Component<{}, LayoutState> {
             <Container>{this.props.children}</Container>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </div>
+      </>
     );
   }
 }
